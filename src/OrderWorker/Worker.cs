@@ -29,6 +29,7 @@ namespace OrderWorker
                 AutoComplete = false,
             };
 
+            _client.RegisterMessageHandler(ProcessMessageAsync, messageHandlerOptions);
             return Task.CompletedTask;
         }
 
