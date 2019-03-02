@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,14 @@ namespace OrderWorker
                     services.AddSingleton<ISubscriptionClient>(new SubscriptionClient(
                         connectionString,
                         topicName,
-                        subscriptionName));
+                        subscriptionName,
+                        ReceiveMode.PeekLock,
+                        RetryPolicy.Default));
+
+                    services.AddSingleton<DocumentClient>(new DocumentClient(
+                        new Uri(context.Configuration["database:accountEndpoint"]),
+                        context.Configuration["database:accountKey"]));
+
                 });
     }
 }
