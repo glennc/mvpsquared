@@ -1,5 +1,29 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Place your order</h1>
 
-Welcome to your new app.
+<EditForm Model="@order" OnValidSubmit="@SubmitAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        Account Id: <InputText bind-Value="@(order.AccountId)" />
+    </p>
+    <p>
+        Quantity: <InputNumber bind-Value="@order.NumberOfWidgets" />
+    </p>
+    <p>
+        Price (per-Widget): <InputNumber bind-Value="@order.PricePerWidget" />
+    </p>
+    <button type="submit">Place Order!</button>
+</EditForm>
+
+@functions {
+    Order order = new Order();
+
+    async Task SubmitAsync(EditContext context)
+    {
+        await Task.Delay(100);
+        order = new Order();
+    }
+}
