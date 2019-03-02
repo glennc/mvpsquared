@@ -24,6 +24,9 @@ namespace OrderApi.Controllers
         [HttpPost()]
         public async Task<IActionResult> SubmitOrder(Order order)
         {
+            // these are new orders so we'll generate ids in the api
+            order.Id = Guid.NewGuid().ToString();
+            
             var message = new Message();
             message.Body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(order));
             await _topicClient.SendAsync(message);
