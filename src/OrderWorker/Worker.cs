@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,12 +13,14 @@ namespace OrderWorker
     public class Worker : IHostedService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly ISubscriptionClient _client;
+        private readonly ISubscriptionClient _subscriptionClient;
+        private readonly DocumentClient _documentClient;
 
-        public Worker(ILogger<Worker> logger, ISubscriptionClient client)
+        public Worker(ILogger<Worker> logger, ISubscriptionClient subscriptionClient, DocumentClient documentClient)
         {
             _logger = logger;
-            _client = client;
+            _subscriptionClient = subscriptionClient;
+            _documentClient = documentClient;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -29,6 +32,7 @@ namespace OrderWorker
                 AutoComplete = false,
             };
 
+            _subscriptionClient.RegisterMessageHandler(ProcessMessageAsync, messageHandlerOptions);
             return Task.CompletedTask;
         }
 
@@ -45,7 +49,8 @@ namespace OrderWorker
 
             // TODO - do something with this...
 
-            await _client.CompleteAsync(message.SystemProperties.LockToken);
+            await _documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri("orders", "order"), order);
+            await _subscriptionClient.CompleteAsync(message.SystemProperties.LockToken);
         }
 
         private async Task ProcessExceptionAsync(ExceptionReceivedEventArgs e)

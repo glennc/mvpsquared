@@ -27,7 +27,10 @@ namespace OrderApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ITopicClient>(new TopicClient(Configuration["ServiceBusConnectionString"], Configuration["OrdersSubmittedTopic"]));
+            var connectionString = Configuration["servicebus:connectionString"];
+            var topicName = Configuration["servicebus:topicName"];
+
+            services.AddSingleton<ITopicClient>(new TopicClient(connectionString, topicName));
 
             services.AddMvc()
                 .AddNewtonsoftJson();
