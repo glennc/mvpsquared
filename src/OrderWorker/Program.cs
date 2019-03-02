@@ -40,7 +40,6 @@ namespace OrderWorker
                     services.AddSingleton<DocumentClient>(new DocumentClient(
                         new Uri(context.Configuration["database:accountEndpoint"]),
                         context.Configuration["database:accountKey"]));
-
                 });
     }
 }
