@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview3-19127-11" />
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="3.3.0" />
   </ItemGroup>
 
 </Project>
