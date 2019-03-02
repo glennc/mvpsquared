@@ -15,7 +15,7 @@ namespace OrderWorker
         private readonly ILogger<Worker> _logger;
         private readonly ISubscriptionClient _subscriptionClient;
         private readonly DocumentClient _documentClient;
-
+        
         public Worker(ILogger<Worker> logger, ISubscriptionClient subscriptionClient, DocumentClient documentClient)
         {
             _logger = logger;
