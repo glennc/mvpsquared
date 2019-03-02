@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace OrderApi.Models
+namespace Models
 {
     public class Order
     {
@@ -12,13 +12,18 @@ namespace OrderApi.Models
         [Required]
         [JsonProperty(PropertyName = "accountId")]
         public string AccountId { get; set; }
+        
+        [JsonProperty(PropertyName = "cart")]
+        public OrderItem[] Cart { get; set; }
+    }
 
-        [Range(0.01, 1000000)]
-        [JsonProperty(PropertyName = "pricePerWidget")]
-        public decimal PricePerWidget { get; set; }
+    public class OrderItem
+    {
+        [JsonProperty(PropertyName = "itemId")]
+        public string CatalogItemId { get; set; }
 
         [Range(1, 1000)]
-        [JsonProperty(PropertyName = "numberOfWidgets")]
-        public int NumberOfWidgets { get; set; }
+        [JsonProperty(PropertyName = "quantity")]
+        public int Quantity { get; set; }
     }
 }

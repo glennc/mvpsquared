@@ -12,21 +12,17 @@
         <h4>Something went wrong...</h4>
         <p>@message</p>
     }
-
+    <h2>
+        The catalog items will be here.
+    </h2>
     <p>
         Account Id: <InputText bind-Value="@(order.AccountId)" />
-    </p>
-    <p>
-        Quantity: <InputNumber bind-Value="@order.NumberOfWidgets" />
-    </p>
-    <p>
-        Price (per-Widget): <InputNumber bind-Value="@order.PricePerWidget" />
     </p>
     <button type="submit">Place Order!</button>
 </EditForm>
 
 @functions {
-    Order order = new Order();
+    Models.Order order = new Models.Order();
     string message;
 
     async Task SubmitAsync(EditContext context)
@@ -36,7 +32,7 @@
         try
         {
             await Client.PlaceOrderAsync(order);
-            order = new Order();
+            order = new Models.Order();
         }
         catch (Exception ex)
         {

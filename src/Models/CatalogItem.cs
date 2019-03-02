@@ -1,8 +1,9 @@
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace CatalogApi.Models
+namespace Models
 {
-     public class Item
+     public class CatalogItem
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
@@ -13,6 +14,7 @@ namespace CatalogApi.Models
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
+        [Range(0.01, 1000000)]
         [JsonProperty(PropertyName = "price")]
         public double Price { get; set; }
     }

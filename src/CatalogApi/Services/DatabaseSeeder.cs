@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CatalogApi.Models;
+using Models;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Hosting;
 
@@ -19,7 +19,7 @@ namespace CatalogApi.Services
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var items = _documentClient.CreateDocumentQuery<Item>(
+            var items = _documentClient.CreateDocumentQuery<CatalogItem>(
                 UriFactory.CreateDocumentCollectionUri("catalog", "items")
             ).ToList();
 
@@ -28,7 +28,7 @@ namespace CatalogApi.Services
             // the catalog is empty, add some items
             var factory = UriFactory.CreateDocumentCollectionUri("catalog", "items");
             _documentClient.CreateDocumentAsync(factory,
-                new Item {
+                new CatalogItem {
                     Id = Guid.NewGuid().ToString(), 
                     Name = "Apple", 
                     Description = "Shiny, red, grown in California", 
@@ -36,7 +36,7 @@ namespace CatalogApi.Services
                 }
             );
             _documentClient.CreateDocumentAsync(factory,
-                new Item {
+                new CatalogItem {
                     Id = Guid.NewGuid().ToString(), 
                     Name = "Banana", 
                     Description = "The perfect food", 
@@ -44,7 +44,7 @@ namespace CatalogApi.Services
                 }
             );
             _documentClient.CreateDocumentAsync(factory,
-                new Item {
+                new CatalogItem {
                     Id = Guid.NewGuid().ToString(), 
                     Name = "Kiwi", 
                     Description = "Cute, fuzzy, interesting accent", 
@@ -52,7 +52,7 @@ namespace CatalogApi.Services
                 }
             );
             _documentClient.CreateDocumentAsync(factory,
-                new Item {
+                new CatalogItem {
                     Id = Guid.NewGuid().ToString(), 
                     Name = "Cashews", 
                     Description = "Great protein snack", 

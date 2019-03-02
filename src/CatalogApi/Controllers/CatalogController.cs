@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CatalogApi.Models;
+using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Documents.Client;
 
@@ -20,9 +20,9 @@ namespace CatalogApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Item>> Get()
+        public ActionResult<IEnumerable<CatalogItem>> Get()
         {
-            var items = _documentClient.CreateDocumentQuery<Item>(
+            var items = _documentClient.CreateDocumentQuery<CatalogItem>(
                 UriFactory.CreateDocumentCollectionUri("catalog", "items")
             ).ToList();
 

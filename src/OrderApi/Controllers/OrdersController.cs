@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
-using OrderApi.Models;
+using Models;
 
 namespace OrderApi.Controllers
 {
