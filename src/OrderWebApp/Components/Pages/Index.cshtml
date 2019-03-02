@@ -1,10 +1,17 @@
 ﻿@page "/"
+@inject OrdersClient Client
 
 <h1>Place your order</h1>
 
 <EditForm Model="@order" OnValidSubmit="@SubmitAsync">
     <DataAnnotationsValidator />
     <ValidationSummary />
+
+    @if (message != null)
+    {
+        <h4>Something went wrong...</h4>
+        <p>@message</p>
+    }
 
     <p>
         Account Id: <InputText bind-Value="@(order.AccountId)" />
@@ -20,10 +27,20 @@
 
 @functions {
     Order order = new Order();
+    string message;
 
     async Task SubmitAsync(EditContext context)
     {
-        await Task.Delay(100);
-        order = new Order();
+        message = null;
+
+        try
+        {
+            await Client.PlaceOrderAsync(order);
+            order = new Order();
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
     }
 }

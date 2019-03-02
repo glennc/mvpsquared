@@ -24,7 +24,10 @@ namespace OrderWebApp
 
             services.AddRazorComponents();
 
-            services.AddSingleton<WeatherForecastService>();
+            services.AddHttpClient<OrdersClient>().ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri("http://localhost:54041/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
