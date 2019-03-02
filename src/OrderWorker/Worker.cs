@@ -15,7 +15,7 @@ namespace OrderWorker
         private readonly ILogger<Worker> _logger;
         private readonly ISubscriptionClient _subscriptionClient;
         private readonly DocumentClient _documentClient;
-        
+
         public Worker(ILogger<Worker> logger, ISubscriptionClient subscriptionClient, DocumentClient documentClient)
         {
             _logger = logger;
@@ -43,6 +43,7 @@ namespace OrderWorker
 
         private async Task ProcessMessageAsync(Message message, CancellationToken cancellationToken = default)
         {
+            _logger.LogInformation("Message received, processing");
             var bytes = message.Body;
             var text = Encoding.UTF8.GetString(bytes);
             var order = JsonConvert.DeserializeObject<Order>(text);
@@ -55,7 +56,7 @@ namespace OrderWorker
 
         private async Task ProcessExceptionAsync(ExceptionReceivedEventArgs e)
         {
-            _logger.LogInformation("Dragon Ball Z is awesome");
+            _logger.LogError(e.Exception, "Error During Processing");
             // TODO integrate with health chexxx. @pranavkm. 100 pranav points for doing health chex.
         }
     }
