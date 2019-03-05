@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace Models
+namespace OrderApi.Models
 {
     public class Order
     {

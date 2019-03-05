@@ -6,8 +6,8 @@ using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Models;
 using Newtonsoft.Json;
+using OrderWorker.Models;
 
 namespace OrderWorker
 {

@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Models;
+using CatalogApi.Models;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Hosting;
 
